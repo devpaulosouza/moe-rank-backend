@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=moe-rank
     ports:
-      - '5432:5432'
+      - 54321:5432
     volumes:
       - moe-rank-db-data:/var/lib/postgresql/data
     networks:
@@ -31,15 +31,15 @@ services:
     image: moe-rank-backend:latest
     expose:
       - 8080
+    ports:
+      - 8080:8080
     networks:
       - moe-rank-network
-    volumes:
-      - moe-rank-backend:/var/lib/spring-cloud/config-repo
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
 
 volumes:
   moe-rank-db-data:
-    driver: local
-  moe-rank-backend:
     driver: local
 
 networks:

@@ -1,0 +1,56 @@
+security:
+  basic:
+    enable: false
+  ignored: /**
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false
+      initializationFailTimeout: 60000
+      poolName: Hikari
+    password: postgres
+    platform: postgres
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/moe-rank
+    username: postgres
+  jpa:
+    database: POSTGRESQL
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+    properties:
+      hibernate:
+        connection:
+          provider_disables_autocommit: true
+        default_schema: public
+        format_sql: true
+        id:
+          new_generator_mappings: true
+        jdbc:
+          time_zone: UTC
+      org:
+        hibernate:
+          envers:
+            store_data_at_delete: true
+    show-sql: true
+
+
+---
+spring.profiles: dev
+
+---
+
+spring:
+  profiles: docker
+  datasource:
+    url: jdbc:postgresql://postgres:5432/moe-rank
